@@ -19,7 +19,7 @@ fn main() {
             let mut temp_vec2:Vec<usize> = [part[0]].to_vec(); 
             for part2 in part.clone() {
                 let mut index = Vec::new();
-                if part2 != *part.first().unwrap() && part2 != *part.last().unwrap() {
+                if index_h != height - 1 && index_l != length - 1 {
                     if &part2 > temp_vec2.last().unwrap() {
                         index.push(index_h);
                         index.push(index_l);
@@ -45,10 +45,10 @@ fn main() {
             let mut temp_vec2:Vec<usize> = [part[length - 1]].to_vec();
             for part2 in part_rev.clone() {
                 let mut index = Vec::new();
-                if part2 != *part_rev.first().unwrap() && part2 != *part_rev.last().unwrap() {
+                if index_h != height - 1 && index_l != length - 1 {
                     if &part2 > temp_vec2.last().unwrap()  {
                         index.push(index_h);
-                        index.push(index_l);
+                        index.push(length - 1 - index_l);
                         //println!("tempvec2: {:?}, current: {:?}", temp_vec2 ,part2);
                         //println!("{:?}", index);
                         visible.push(index.clone());
@@ -67,9 +67,10 @@ fn main() {
         let mut index_h = 1;
         if i != 0 {
             let mut temp_vec2:Vec<usize> = [trees[0][i]].to_vec();
-            for n in 1..height {
+            for n in 1..height - 1 {
                 let mut index = Vec::new();
-                if trees[i][n] > *temp_vec2.last().unwrap() && trees[i][n] != trees[i][0] && trees[i][n] != trees[i][length - 1] {
+                //println!("{} {} {}", trees[n][i], trees[0][i], trees[length - 1][i]);
+                if trees[n][i] > *temp_vec2.last().unwrap() && trees[n][i] != trees[0][i] {
                     index.push(index_h);
                     index.push(index_l);
                     //println!("{i}, {n}");
@@ -90,13 +91,14 @@ fn main() {
         let mut index_h = 1;
         if i != 0 {
             let mut temp_vec2:Vec<usize> = [trees[0][i]].to_vec();
-            for n in 1..height {
+            for n in 1..height - 1{
                 let mut index = Vec::new();
-                if trees[n][i] > *temp_vec2.last().unwrap() && trees[i][n] != trees[i][0] && trees[i][n] != trees[i][length - 1] {
+                //println!("{} {} {}", trees[n][i], trees[0][i], trees[length - 1][i]);
+                if trees[n][i] > *temp_vec2.last().unwrap() && trees[n][i] != trees[0][i] {
                     index.push(height - 1 - index_h);
                     index.push(index_l);
                     //println!("{i}, {n}");
-                    //println!("tempvec2: {:?}, current: {:?}", temp_vec2 ,trees[n][i]);
+                    //println!("vec: {:?}, cur: {}", temp_vec2, trees[n][i]);
                     //println!("{:?}", index);
                     visible.push(index);
                 }
